@@ -91,8 +91,6 @@ CREATE TABLE email_analytics (
 
 ## 📸 Screenshots
 
-## 📸 Screenshots
-
 ### 1. Dashboard View
 ![Dashboard](https://github.com/Prerana-03/AI_EMAIL_PRO_Updated/blob/main/screenshots/Screenshot%202025-04-11%20161037.png?raw=true)
 
