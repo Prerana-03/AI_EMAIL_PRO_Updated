@@ -91,17 +91,30 @@ CREATE TABLE email_analytics (
 
 ## 📸 Screenshots
 
-![Dashboard](https://github.com/Prerana-03/AI_EMAIL_PRO/blob/main/screenshots/Screenshot%202025-03-31%20023514.png)
+## 📸 Screenshots
 
-![Email Composition](https://github.com/Prerana-03/AI_EMAIL_PRO/blob/main/screenshots/Screenshot%202025-03-31%20023521.png)
+### 1. Dashboard View
+![Dashboard](https://github.com/Prerana-03/AI_EMAIL_PRO_Updated/blob/main/screenshots/Screenshot%202025-04-11%20161037.png?raw=true)
 
-![Analytics](https://github.com/Prerana-03/AI_EMAIL_PRO/blob/main/screenshots/Screenshot%202025-03-31%20023544.png)
+### 2. Analytics View
+![Analytics](https://github.com/Prerana-03/AI_EMAIL_PRO_Updated/blob/main/screenshots/Screenshot%202025-04-11%20161142.png?raw=true)
 
-![Analytics](https://github.com/Prerana-03/AI_EMAIL_PRO/blob/main/screenshots/Screenshot%202025-03-31%20030941.png)
+### 3. Email Generator Interface
+![Email Generator](https://github.com/Prerana-03/AI_EMAIL_PRO_Updated/blob/main/screenshots/Screenshot%202025-04-11%20161158.png?raw=true)
+
+### 4. AI Suggestions Section
+![AI Suggestions](https://github.com/Prerana-03/AI_EMAIL_PRO_Updated/blob/main/screenshots/Screenshot%202025-04-11%20161731.png?raw=true)
+
+### 5. Signup Page
+![Signup Page](https://github.com/Prerana-03/AI_EMAIL_PRO_Updated/blob/main/screenshots/Screenshot%202025-04-11%20161120.png?raw=true)
+
+### 6. Login Page
+![Login Page](https://github.com/Prerana-03/AI_EMAIL_PRO_Updated/blob/main/screenshots/Screenshot%202025-04-11%20161107.png?raw=true)
+
 
 ## 🎥 Demo
 
-[▶ Watch Demo](https://drive.google.com/file/d/144PP9XRYpdl4vVqyeV4lw3RTjUsYDaT8/view?usp=sharing)
+[▶ Watch Demo](https://drive.google.com/file/d/1kEKNt06yByHgCNXolhIb_rVkyK4kyReV/view?usp=sharing)
 
 ## 📜 Available Scripts
 
