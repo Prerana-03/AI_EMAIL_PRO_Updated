@@ -134,7 +134,7 @@ Contributions are welcome! Please follow these steps:
 
 🌍 Live Demo
 
-https://ai-email-pro-7j8r.vercel.app
+https://ai-email-pro-updated.vercel.app/
 
 ## 📜 License
 
