@@ -1,35 +1,45 @@
-export async function generateWithGemini(prompt: string): Promise<string> {
-  const url = "http://127.0.0.1:8082/completion";
+import { Groq } from 'groq-sdk';
 
-  const requestBody = {
-    prompt: prompt,
-    n_predict: 64,
+export async function generateWithGemini(prompt: string): Promise<string> {
+  // Initialize the Groq client with your API key
+  const groq = new Groq({ apiKey: process.env.YOUR_SECRET });
+
+  // Define the messages array with explicit typing for Groq SDK compatibility
+  const messages: Groq.Chat.ChatCompletionMessageParam[] = [
+    { role: "user", content: prompt }
+  ];
+
+  // Set up the request parameters
+  const requestParams = {
+    model: "llama-3.3-70b-versatile", // Specify the model (verify availability with your API key)
+    messages: messages,
+    max_completion_tokens: 64 // Limits the response length
   };
 
   try {
-    console.log("LLaMA Request URL:", url);
-    console.log("LLaMA Request Body:", requestBody);
+    // Log the request for debugging (optional)
+    console.log("Groq Request:", requestParams);
 
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(requestBody)
-    });
+    // Make the API call to Groq
+    const response = await groq.chat.completions.create(requestParams);
 
-    const result = await response.json();
+    // Log the response for debugging (optional)
+    console.log("Groq Response:", response);
 
-    console.log("LLaMA Response:", result);
+    // Extract the generated content
+    const content = response.choices[0].message.content;
 
-    if (!result.content) {
-      throw new Error("⚠️ No content returned from LLaMA server.");
+    // Check if content exists
+    if (!content) {
+      throw new Error("⚠️ No content returned from Groq API.");
     }
 
-    return result.content.trim();
+    // Return the trimmed content
+    return content.trim();
   } catch (error: any) {
-    console.error("❌ LLaMA API Error:", error);
-    const errorMessage = error.message || "Failed to generate text from LLaMA.";
+    // Handle and log any errors
+    console.error("❌ Groq API Error:", error);
+    const errorMessage = error.message || "Failed to generate text from Groq API.";
     throw new Error(errorMessage);
   }
 }
