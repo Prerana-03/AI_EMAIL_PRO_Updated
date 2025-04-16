@@ -37,7 +37,7 @@ function App() {
             <Mail className="h-5 w-5 mr-2" />
             Compose
           </button>
-          <button
+          {/* <button
             onClick={() => setActiveTab('inbox')}
             className={`flex items-center px-4 py-2 rounded-lg ${
               activeTab === 'inbox'
@@ -47,7 +47,7 @@ function App() {
           >
             <Inbox className="h-5 w-5 mr-2" />
             Inbox
-          </button>
+          </button> */}
           <button
             onClick={() => setActiveTab('analytics')}
             className={`flex items-center px-4 py-2 rounded-lg ${

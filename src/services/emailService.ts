@@ -1,4 +1,5 @@
 import { supabase } from '../lib/supabase';
+import { generateWithGemini } from './geminiService';
 
 export interface EmailAnalytics {
   id: string;
@@ -108,14 +109,35 @@ export const emailService = {
   },
 
   async updateOpenCount(emailId: string): Promise<void> {
-    const { error } = await supabase
-      .from('email_analytics')
-      .update({
-        open_count: supabase.raw('open_count + 1'),
-        last_opened_at: new Date().toISOString()
-      })
-      .eq('id', emailId);
+    try {
+      const { data, error } = await supabase
+        .from('email_analytics')
+        .update({
+          last_opened_at: new Date().toISOString(),
+        })
+        .eq('id', emailId)
+        .select('open_count')
+        .single();
 
-    if (error) throw error;
-  }
-}; 
+      if (error) throw error;
+
+      const updatedOpenCount = (data?.open_count || 0) + 1;
+
+      const { error: updateError } = await supabase
+        .from('email_analytics')
+        .update({
+          open_count: updatedOpenCount,
+          last_opened_at: new Date().toISOString(),
+        })
+        .eq('id', emailId);
+
+      if (updateError) throw updateError;
+    } catch (error) {
+      console.error('Error updating open count:', error);
+      throw error;
+    }
+  },
+
+  // Re-export the Gemini function
+  generateWithGemini
+};

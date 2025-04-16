@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { BarChart2, TrendingUp, Users, Clock, Plus } from "lucide-react";
 import { emailService, EmailAnalytics } from "../services/emailService";
 import { format } from "date-fns";
+import { generateWithGemini } from "../services/geminiService";
 
 const Analytics = () => {
   const [analytics, setAnalytics] = useState<EmailAnalytics[]>([]);
@@ -35,6 +36,24 @@ const Analytics = () => {
       console.error("Error adding test data:", err);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleGenerateInsights = async () => {
+    try {
+      const prompt = `You are an analytics assistant. Based on this email campaign data:
+- Total Emails Sent: ${totalEmails}
+- Open Rate: ${openRate.toFixed(1)}%
+- Unique Recipients: ${uniqueRecipients}
+- Average Response Time: ${avgResponseTime.toFixed(1)} hours
+
+Write a short paragraph summarizing performance and giving 2 tips to improve email engagement.`;
+
+      const aiSummary = await generateWithGemini(prompt);
+      alert(aiSummary);
+    } catch (error) {
+      alert("❌ Failed to generate insights.");
+      console.error("AI Insight Error:", error);
     }
   };
 
@@ -91,7 +110,8 @@ const Analytics = () => {
         </button>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 mb-8">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 mb-4">
+        {/* Metric Cards */}
         <div className="bg-white overflow-hidden shadow rounded-lg">
           <div className="p-5">
             <div className="flex items-center">
@@ -171,6 +191,16 @@ const Analytics = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* 🔥 AI Summary Button */}
+      <div className="mb-8">
+        <button
+          onClick={handleGenerateInsights}
+          className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+        >
+          🧠 Generate AI Summary
+        </button>
       </div>
 
       <div className="bg-white shadow rounded-lg p-6">

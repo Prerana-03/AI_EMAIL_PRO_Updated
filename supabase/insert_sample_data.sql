@@ -7,4 +7,5 @@ VALUES
   ('lisa.wilson@example.com', 'Client Meeting Notes', 'Here are the notes from our client meeting today.', NOW(), 'sent', 0, NULL),
   ('david.brown@example.com', 'Product Launch Timeline', 'Here is our updated product launch schedule...', NOW() - INTERVAL '4 days', 'sent', 4, NOW() - INTERVAL '3 days');
 
--- You can run SELECT * FROM email_analytics; to verify the data was inserted 
+-- You can run SELECT * FROM email_analytics; to verify the data was inserted
+SELECT * FROM email_analytics;

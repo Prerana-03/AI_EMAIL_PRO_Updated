@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Send, Loader2, Wand2 } from "lucide-react";
 import { emailService } from "../services/emailService";
 
-const EmailComposer = () => {
+function EmailComposer() {
   const [recipient, setRecipient] = useState("");
   const [subject, setSubject] = useState("");
   const [content, setContent] = useState("");
@@ -11,12 +11,23 @@ const EmailComposer = () => {
   const [error, setError] = useState<string | null>(null);
 
   const handleGenerateEmail = async () => {
-    setIsGenerating(true);
-    // TODO: Implement AI email generation
-    setTimeout(() => {
+    if (!subject) {
+      alert("Please enter a subject first!");
+      return;
+    }
+
+    try {
+      setIsGenerating(true);
+      setError(null);
+      const prompt = `Write a professional and formal email with the subject: "${subject}". The email should be well-structured and maintain a business-appropriate tone.`;
+      const generatedContent = await emailService.generateWithGemini(prompt);
+      setContent(generatedContent);
+    } catch (err: any) {
+      console.error("❌ Generation error:", err);
+      setError(err.message || "Failed to generate email. Please try again.");
+    } finally {
       setIsGenerating(false);
-      setContent("This is a sample AI-generated email content.");
-    }, 2000);
+    }
   };
 
   const handleSendEmail = async () => {
@@ -26,7 +37,6 @@ const EmailComposer = () => {
 
       await emailService.sendEmail(recipient, subject, content);
 
-      // Clear form after successful send
       setRecipient("");
       setSubject("");
       setContent("");
@@ -57,8 +67,7 @@ const EmailComposer = () => {
             value={recipient}
             onChange={(e) => setRecipient(e.target.value)}
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            placeholder="recipient@example.com"
-          />
+            placeholder="recipient@example.com" />
         </div>
         <div>
           <label
@@ -73,8 +82,7 @@ const EmailComposer = () => {
             value={subject}
             onChange={(e) => setSubject(e.target.value)}
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            placeholder="Enter subject"
-          />
+            placeholder="Enter subject" />
         </div>
         <div>
           <label
@@ -90,11 +98,10 @@ const EmailComposer = () => {
               value={content}
               onChange={(e) => setContent(e.target.value)}
               className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-              placeholder="Write your email content here..."
-            />
+              placeholder="Write your email content here..." />
             <button
               onClick={handleGenerateEmail}
-              disabled={isGenerating}
+              disabled={isGenerating || !subject}
               className="absolute right-2 top-2 inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               {isGenerating ? (
@@ -134,6 +141,6 @@ const EmailComposer = () => {
       </div>
     </div>
   );
-};
+}
 
 export default EmailComposer;
